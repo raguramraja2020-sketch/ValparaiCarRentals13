@@ -1,0 +1,24 @@
+{
+  "name": "valparai-rental-cars",
+  "version": "1.0.0",
+  "description": "VALPARAI RENTAL CARS - Full-Stack Car Rental Management System",
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "seed": "node server/seed.js",
+    "server": "node server/server.js",
+    "client": "cd client && npm run dev",
+    "dev": "node start-dev.js",
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "car-rental",
+    "valparai",
+    "management-system",
+    "react",
+    "nodejs",
+    "sqlite",
+    "full-stack"
+  ],
+  "author": "Karthikeyan",
+  "license": "ISC"
+}
