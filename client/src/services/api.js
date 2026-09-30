@@ -136,12 +136,26 @@ export const api = {
     }
   },
 
-  login: async (email, password, role) => {
+  login: async (emailOrObj, passwordArg, roleArg) => {
+    let email = emailOrObj;
+    let password = passwordArg;
+    let role = roleArg;
+
+    if (typeof emailOrObj === 'object' && emailOrObj !== null) {
+      email = emailOrObj.email;
+      password = emailOrObj.password;
+      role = emailOrObj.role || emailOrObj.requestedRole;
+    }
+
+    email = String(email || '').trim().toLowerCase();
+    password = String(password || '');
+    role = String(role || 'customer').toLowerCase();
+
     try {
       return await request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password, role }) });
     } catch {
       // Offline fallback with built-in credentials
-      const normalizedEmail = email.trim().toLowerCase();
+      const normalizedEmail = email;
       const users = getStored('vrc_users', []);
 
       if (role === 'admin') {
