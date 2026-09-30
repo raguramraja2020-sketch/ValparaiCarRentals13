@@ -18,7 +18,7 @@ import {
   Gauge
 } from 'lucide-react';
 
-export default function MechanicDashboard() {
+export default function MechanicDashboard({ onStatusChange }) {
   const { user } = useAuth();
   const { addToast } = useToast();
 
@@ -85,6 +85,7 @@ export default function MechanicDashboard() {
         );
         setSelectedTicket(null);
         loadMechanicData();
+        if (onStatusChange) onStatusChange();
       }
     } catch (err) {
       addToast(err.message || 'Failed to update ticket.', 'error');

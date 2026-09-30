@@ -11,7 +11,7 @@ import {
   Sparkles 
 } from 'lucide-react';
 
-export default function Cars({ initialSearchCriteria, onBookClick, onViewDetails }) {
+export default function Cars({ initialSearchCriteria, onBookClick, onViewDetails, refreshKey }) {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,7 +33,7 @@ export default function Cars({ initialSearchCriteria, onBookClick, onViewDetails
 
   useEffect(() => {
     loadVehicles();
-  }, [searchQuery, selectedCategory, selectedFuel, selectedTransmission, maxPrice, availabilityOnly, pickupDate, returnDate]);
+  }, [searchQuery, selectedCategory, selectedFuel, selectedTransmission, maxPrice, availabilityOnly, pickupDate, returnDate, refreshKey]);
 
   const loadVehicles = async () => {
     setLoading(true);

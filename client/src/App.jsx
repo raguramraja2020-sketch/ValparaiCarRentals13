@@ -23,6 +23,9 @@ function MainApp() {
   // Search criteria passed from Hero to Cars page
   const [searchCriteria, setSearchCriteria] = useState(null);
 
+  const [refreshFleetKey, setRefreshFleetKey] = useState(0);
+  const triggerFleetRefresh = () => setRefreshFleetKey(k => k + 1);
+
   // Modals
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authInitialMode, setAuthInitialMode] = useState('login');
@@ -97,6 +100,7 @@ function MainApp() {
             onBookClick={handleBookVehicle}
             onViewDetails={handleViewVehicleDetails}
             onExploreCarsClick={() => handlePageNavigation('cars')}
+            refreshKey={refreshFleetKey}
           />
         )}
 
@@ -105,6 +109,7 @@ function MainApp() {
             initialSearchCriteria={searchCriteria}
             onBookClick={handleBookVehicle}
             onViewDetails={handleViewVehicleDetails}
+            refreshKey={refreshFleetKey}
           />
         )}
 
@@ -115,12 +120,19 @@ function MainApp() {
         {activePage === 'contact' && <Contact />}
 
         {activePage === 'customer-dashboard' && (
-          <CustomerDashboard onBookCarClick={() => handlePageNavigation('cars')} />
+          <CustomerDashboard 
+            onBookCarClick={() => handlePageNavigation('cars')}
+            onCancelBookingSuccess={triggerFleetRefresh}
+          />
         )}
 
-        {activePage === 'admin-dashboard' && <AdminDashboard />}
+        {activePage === 'admin-dashboard' && (
+          <AdminDashboard onStatusChange={triggerFleetRefresh} />
+        )}
 
-        {activePage === 'mechanic-dashboard' && <MechanicDashboard />}
+        {activePage === 'mechanic-dashboard' && (
+          <MechanicDashboard onStatusChange={triggerFleetRefresh} />
+        )}
       </main>
 
       {/* Footer */}
@@ -135,7 +147,7 @@ function MainApp() {
         onClose={() => setBookingModalOpen(false)}
         onOpenAuth={handleOpenAuth}
         onSuccess={() => {
-          // If customer booked, can navigate to dashboard
+          triggerFleetRefresh();
         }}
       />
 

@@ -21,7 +21,7 @@ import {
   Check
 } from 'lucide-react';
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ onStatusChange }) {
   const { addToast } = useToast();
 
   const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'vehicles', 'bookings', 'maintenance', 'customers', 'mechanics', 'feedback'

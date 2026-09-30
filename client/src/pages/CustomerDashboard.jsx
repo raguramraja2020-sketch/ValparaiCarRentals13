@@ -20,7 +20,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 
-export default function CustomerDashboard({ onBookCarClick }) {
+export default function CustomerDashboard({ onBookCarClick, onCancelBookingSuccess }) {
   const { user, updateUser } = useAuth();
   const { addToast } = useToast();
 
@@ -70,6 +70,7 @@ export default function CustomerDashboard({ onBookCarClick }) {
       if (res.success) {
         addToast('Booking cancelled successfully.', 'success');
         loadDashboardData();
+        if (onCancelBookingSuccess) onCancelBookingSuccess();
       }
     } catch (err) {
       addToast(err.message || 'Failed to cancel booking.', 'error');

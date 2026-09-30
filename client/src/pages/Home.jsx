@@ -19,7 +19,7 @@ import {
   Zap
 } from 'lucide-react';
 
-export default function Home({ onSearchSubmit, onBookClick, onViewDetails, onExploreCarsClick }) {
+export default function Home({ onSearchSubmit, onBookClick, onViewDetails, onExploreCarsClick, refreshKey }) {
   const [featuredVehicles, setFeaturedVehicles] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +40,7 @@ export default function Home({ onSearchSubmit, onBookClick, onViewDetails, onExp
       }
     }
     loadHomeData();
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="space-y-24">
